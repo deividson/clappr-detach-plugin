@@ -158,7 +158,7 @@ const initPlugin = ({
     */
     bindEvents() {
       this.listenTo(this.core, Events.CORE_OPTIONS_CHANGE, this.onOptionsChange)
-      this.listenTo(this.core, Events.CORE_READY, this.onCoreReady)
+      this.listenToOnce(this.core, Events.CORE_READY, this.onCoreReady)
       this.listenTo(this.core, Events.CORE_FULLSCREEN, this.onCoreFullScreen)
       this.listenTo(this.mediaControl, Events.MEDIACONTROL_RENDERED, this.onMediaControlRendered)
     }
