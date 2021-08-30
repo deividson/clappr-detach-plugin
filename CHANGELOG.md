@@ -1,4 +1,6 @@
 # CHANGELOG
+## 0.4.8
+- preventing wrong style application if core was loaded while player are detached
 
 ## 0.4.7
 
