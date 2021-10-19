@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import assign from 'lodash.assign'
 
 import setupInteractions from './interactions'
@@ -11,7 +12,7 @@ import detachStyle from './assets/detach.css'
 
 let dragInteractable
 
-const NOOP = () => {}
+const NOOP = () => { }
 
 const DEFAULT_POSITION = 10
 
@@ -115,7 +116,9 @@ const initPlugin = ({
     // so we can use the new value
     // we have to verify the core first to not apply changes before the right moment
     onOptionsChange() {
-      if (this.core.ready) { this.toggleDetach(this.core.options.isDetached) }
+      if (this.core.ready) {
+        this.toggleDetach(this.core.options.isDetached && !this.core.isFullscreen())
+      }
     }
 
     /*
@@ -236,6 +239,7 @@ const initPlugin = ({
       this.$player[0].style.transform = 'translate(0, 0)'
 
       const options = this.detachedOptions
+
       if (isDetached) {
         this.$player[0].style.opacity = `${options.opacity}`
         this.$player[0].style.left = `${options.left}px`
@@ -284,10 +288,8 @@ const initPlugin = ({
       attach / detach
       ---------------------------------------------------------------------------
     */
-    toggleDetach = (isDetached) => {
-      this.setOptions({
-        isDetached,
-      })
+    toggleDetach(isDetached = false) {
+      this.setOptions({ isDetached })
       const isPlaying = this.currentContainer.isPlaying()
 
       this.updatePlayer(isDetached)
@@ -306,14 +308,14 @@ const initPlugin = ({
       }
     }
 
-    attach = () => {
+    attach() {
       if (!this.getOptions().isDetached) {
         return
       }
       this.toggleDetach(false)
     }
 
-    detach = () => {
+    detach() {
       if (this.getOptions().isDetached) {
         return
       }
