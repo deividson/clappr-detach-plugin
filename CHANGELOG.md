@@ -1,4 +1,8 @@
 # CHANGELOG
+
+## 0.4.9
+- fixing a conflict when the player goes full screen when detached
+
 ## 0.4.8
 - preventing wrong style application if core was loaded while player are detached
 

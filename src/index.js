@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import assign from 'lodash.assign'
 
 import setupInteractions from './interactions'
@@ -11,7 +12,7 @@ import detachStyle from './assets/detach.css'
 
 let dragInteractable
 
-const NOOP = () => {}
+const NOOP = () => { }
 
 const DEFAULT_POSITION = 10
 
@@ -108,6 +109,7 @@ const initPlugin = ({
     }
 
     setOptions(options) {
+      console.log('[clappr-detach] - setOptions() - options: ', options)
       assign(this.core.options.detachOptions, options)
     }
 
@@ -115,7 +117,10 @@ const initPlugin = ({
     // so we can use the new value
     // we have to verify the core first to not apply changes before the right moment
     onOptionsChange() {
-      if (this.core.ready) { this.toggleDetach(this.core.options.isDetached) }
+      if (this.core.ready) {
+        console.log('[clappr-detach] - onOptionsChange() - isDetached: ', this.core.options.isDetached)
+        this.toggleDetach(this.core.options.isDetached && !this.core.isFullscreen())
+      }
     }
 
     /*
@@ -173,6 +178,7 @@ const initPlugin = ({
 
       // save player original styles to reset back to it when needed
       this.playerOriginalStyle = this.$player.attr('style')
+      console.log('[clappr-detach] - onCoreReady() - original styles saved: ', this.playerOriginalStyle)
 
       // set the playerPlaceholder styles based on the player styles
       this.$playerPlaceholder.attr('style', this.playerOriginalStyle)
@@ -215,6 +221,7 @@ const initPlugin = ({
       adds the toggle detach button to the media control
     */
     onMediaControlRendered() {
+      console.log('[clappr-detach] - onMediaControlRendered()')
       if (this.mediaControl.setKeepVisible) {
         this.mediaControl.setKeepVisible(true)
       }
@@ -236,6 +243,8 @@ const initPlugin = ({
       this.$player[0].style.transform = 'translate(0, 0)'
 
       const options = this.detachedOptions
+      console.log('[clappr-detach] - updatePlayer() - isDetached: ', isDetached)
+
       if (isDetached) {
         this.$player[0].style.opacity = `${options.opacity}`
         this.$player[0].style.left = `${options.left}px`
@@ -284,10 +293,9 @@ const initPlugin = ({
       attach / detach
       ---------------------------------------------------------------------------
     */
-    toggleDetach = (isDetached) => {
-      this.setOptions({
-        isDetached,
-      })
+    toggleDetach(isDetached = false) {
+      console.log('[clappr-detach] - toggleDetach() - isDetached: ', isDetached)
+      this.setOptions({ isDetached })
       const isPlaying = this.currentContainer.isPlaying()
 
       this.updatePlayer(isDetached)
@@ -306,14 +314,16 @@ const initPlugin = ({
       }
     }
 
-    attach = () => {
+    attach() {
+      console.log('[clappr-detach] - attach() - options.isDetached: ', this.getOptions().isDetached)
       if (!this.getOptions().isDetached) {
         return
       }
       this.toggleDetach(false)
     }
 
-    detach = () => {
+    detach() {
+      console.log('[clappr-detach] - detach() - options.isDetached: ', this.getOptions().isDetached)
       if (this.getOptions().isDetached) {
         return
       }
