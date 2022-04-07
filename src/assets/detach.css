@@ -63,3 +63,8 @@
   position: fixed !important;
   z-index: 1;
 }
+
+.clappr-detach--is-detached:hover,
+.clappr-detach--is-detached:active {
+  touch-action: none;
+}
