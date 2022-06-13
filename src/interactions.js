@@ -61,7 +61,7 @@ const setupInteractions = (element, { drag, drop }) => {
     result.drag = setupDrag(element, drag)
   }
   if (drop) {
-    setupDrop(element, drop)
+    result.drag = setupDrop(element, drop)
   }
   return result
 }

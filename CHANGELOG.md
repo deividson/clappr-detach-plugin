@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.11
+
+- interaction adjustment, for pip movement after auto next
+
 ## 0.4.10
 
 - fixing a bug that prevented drag from happening normally on mobile devices
