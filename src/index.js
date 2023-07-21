@@ -1,6 +1,4 @@
 /* eslint-disable no-console */
-import assign from 'lodash.assign'
-
 import setupInteractions from './interactions'
 import { addDragArea, removeDragArea } from './drag'
 
@@ -109,7 +107,10 @@ const initPlugin = ({
     }
 
     setOptions(options) {
-      assign(this.core.options.detachOptions, options)
+      this.core.options.detachOptions = {
+        ...this.core.options.detachOptions,
+        ...options,
+      }
     }
 
     // when this function is called, `this.core.options.detachOptions` was already changed by clappr,
