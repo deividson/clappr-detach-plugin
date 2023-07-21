@@ -1,6 +1,9 @@
 {
-  "parser": "babel-eslint",
-  "extends": "airbnb-base",
+  "parser": "@babel/eslint-parser",
+  "root": true,
+  "extends": [
+    "eslint-config-airbnb-base"
+  ],
   "env": {
       "browser": true,
       "node": true

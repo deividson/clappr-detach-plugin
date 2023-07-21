@@ -1,33 +1,39 @@
 const path = require('path')
 
 module.exports = {
+  mode: 'production',
   entry: path.resolve(__dirname, 'src/index.js'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'clappr-detach-plugin.js',
     library: 'ClapprDetachPlugin',
+    libraryExport: 'default',
     libraryTarget: 'umd',
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /src\/.+.js$/,
-        loader: 'babel',
-        query: {
-          compact: true,
-        },
+        test: /\.(js|jsx)$/i,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
       },
       {
         test: /\.css$/,
-        loader: 'css',
+        use: ['css-loader'],
       },
       {
         test: /\.(html|svg)$/,
-        loader: 'html?minimize=true',
+        loader: 'html-loader',
+        options: {
+          minimize: true,
+        },
       },
     ],
   },
   resolve: {
     extensions: ['', '.js'],
+  },
+  optimization: {
+    minimize: true,
   },
 }

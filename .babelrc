@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "@babel/syntax-dynamic-import"
+  ],
+  "presets": [
+      ["@babel/preset-env", {
+        "loose": true,
+        "targets": {
+          "esmodules": true,
+          "browsers": ["last 2 versions"]
+        }
+    }]
+  ]
+}
